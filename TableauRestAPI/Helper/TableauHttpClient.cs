@@ -10,6 +10,6 @@ namespace TableauRestAPI.Services
     {
 
       public  static HttpClient client = new HttpClient();
-        
+         
     }
 }
