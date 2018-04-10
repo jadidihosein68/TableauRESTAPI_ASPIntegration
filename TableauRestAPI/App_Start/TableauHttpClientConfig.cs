@@ -12,7 +12,7 @@ namespace TableauRestAPI.App_Start
 
         public static void RegisterClient(HttpClient client) {
 
-            client.BaseAddress = new Uri("http://tableau:8000/api/");
+            client.BaseAddress = new Uri("http://tableau:8000/api/"); // the tableau server address "http://<ServerName:port No>/api/
             client.DefaultRequestHeaders.Accept.Clear();
             client.DefaultRequestHeaders.Accept.Add(
             new MediaTypeWithQualityHeaderValue("application/json"));
