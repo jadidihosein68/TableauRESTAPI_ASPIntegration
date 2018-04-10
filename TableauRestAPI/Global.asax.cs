@@ -24,7 +24,7 @@ namespace TableauRestAPI
 
 
 
-            HttpClientConfig.RegisterClient(MyHttpClient.client);
+            TableauHttpClientConfig.RegisterClient(TableauHttpClient.client);
             GlobalConfiguration.Configure(WebApiConfig.Register);
             AreaRegistration.RegisterAllAreas();
             FilterConfig.RegisterGlobalFilters(GlobalFilters.Filters);

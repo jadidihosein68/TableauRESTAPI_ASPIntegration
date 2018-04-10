@@ -7,7 +7,7 @@ using System.Web;
 
 namespace TableauRestAPI.App_Start
 {
-    public class HttpClientConfig
+    public class TableauHttpClientConfig
     {
 
         public static void RegisterClient(HttpClient client) {
@@ -16,6 +16,7 @@ namespace TableauRestAPI.App_Start
             client.DefaultRequestHeaders.Accept.Clear();
             client.DefaultRequestHeaders.Accept.Add(
             new MediaTypeWithQualityHeaderValue("application/json"));
+            //new MediaTypeWithQualityHeaderValue("application/xml")); // To sent in XML format uncomment this line
 
         }
 

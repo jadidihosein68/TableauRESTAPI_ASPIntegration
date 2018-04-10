@@ -21,12 +21,12 @@ namespace TableauRestAPI.Controllers.Api
         
             string path = "2.8/serverinfo";
 
-            HttpResponseMessage response = await MyHttpClient.client.GetAsync(path);
+            HttpResponseMessage response = await TableauHttpClient.client.GetAsync(path);
             if (response.IsSuccessStatusCode)
             {
 
                 /// to use object : 
-                ObjectToreturn TheObj = await response.Content.ReadAsAsync<ObjectToreturn>();
+                ServerInfoAPIObject TheObj = await response.Content.ReadAsAsync<ServerInfoAPIObject>();
                 return Ok(TheObj);
 
               
@@ -51,7 +51,7 @@ namespace TableauRestAPI.Controllers.Api
 
             string path = "2.8/auth/signin";
 
-            var response = await MyHttpClient.client.PostAsJsonAsync(path, theobj);
+            var response = await TableauHttpClient.client.PostAsJsonAsync(path, theobj);
 
             if (response.IsSuccessStatusCode)
             {

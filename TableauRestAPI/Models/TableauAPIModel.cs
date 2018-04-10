@@ -6,11 +6,7 @@ using System.Web;
 namespace TableauRestAPI.Models
 {
 
-
-
-
-
-    class ObjectToreturn
+    class ServerInfoAPIObject
     {
         public serverInfo serverInfo { get; set; }
         public string restApiVersion { get; set; }
@@ -21,17 +17,13 @@ namespace TableauRestAPI.Models
         public string value { get; set; }
         public string build { get; set; }
     }
-
-
+    
     public class serverInfo
     {
         public productVersion productVersion { get; set; }
 
     }
-
-
-
-
+    
     public class CredentialTableau
     {
         public string name { get; set; }
@@ -39,27 +31,13 @@ namespace TableauRestAPI.Models
         public site site { get; set; }
         public string token { get; set; }
         public TableauUser user { get; set; }
-
-        public CredentialTableau(string name, string password, site site)
-        {
-
-            this.name = name;
-            this.password = password;
-            this.site = site;
-
-        }
+        
     }
-
-
-
-
 
     public class TableauUser
     {
         public string id { get; set; }
     }
-
-
 
     public class postObject
     {

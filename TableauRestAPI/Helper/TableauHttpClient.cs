@@ -6,14 +6,10 @@ using System.Web;
 
 namespace TableauRestAPI.Services
 {
-    public static class MyHttpClient
+    public static class TableauHttpClient
     {
 
-
       public  static HttpClient client = new HttpClient();
-
-
-
-
+        
     }
 }
