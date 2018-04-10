@@ -44,23 +44,29 @@ namespace TableauRestAPI.Controllers.Api
         }
 
 
+        void SwapCurrentHeaderValue( string HeaderVariable , string headerValue ) {
+
+            TableauHttpClient.client.DefaultRequestHeaders.Remove(HeaderVariable);
+            TableauHttpClient.client.DefaultRequestHeaders.Add(HeaderVariable, headerValue);
+
+        }
+
+
         [HttpPost]
-        [Route("api/SignIn")]
+        [Route("api/TableauSignIn")]
         public async Task<IHttpActionResult> SignIn(postObject theobj)
         {
-
             string path = "2.8/auth/signin";
-
             var response = await TableauHttpClient.client.PostAsJsonAsync(path, theobj);
 
             if (response.IsSuccessStatusCode)
             {
-
-
                 /// to use object : 
                 postObject TheObj = await response.Content.ReadAsAsync<postObject>();
+
+                SwapCurrentHeaderValue("X-Tableau-Auth", TheObj.credentials.token.ToString());
+
                 return Ok(TheObj);
-                
 
                 // to use string 
                 /*
@@ -68,7 +74,6 @@ namespace TableauRestAPI.Controllers.Api
                 var details = JObject.Parse(result2);              
                 return Ok(details);
                 */
-
             }
 
             return BadRequest();
@@ -77,11 +82,22 @@ namespace TableauRestAPI.Controllers.Api
 
 
 
+        [HttpPost]
+        [Route("api/TableauSignOut")]
+        public async Task<IHttpActionResult> SignOut() {
 
 
+            string path = "2.8/auth/signout";
+            var response = await TableauHttpClient.client.PostAsJsonAsync(path,"");
 
+            if (response.IsSuccessStatusCode)
+            {
+                TableauHttpClient.client.DefaultRequestHeaders.Remove("X-Tableau-Auth");
 
-
+                return StatusCode(HttpStatusCode.NoContent);
+            }
+            return Unauthorized();
+        }
 
 
         }
