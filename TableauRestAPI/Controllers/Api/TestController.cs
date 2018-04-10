@@ -46,10 +46,12 @@ namespace TableauRestAPI.Controllers.Api
 
         void SwapCurrentHeaderValue( string HeaderVariable , string headerValue ) {
 
+
             TableauHttpClient.client.DefaultRequestHeaders.Remove(HeaderVariable);
             TableauHttpClient.client.DefaultRequestHeaders.Add(HeaderVariable, headerValue);
-
         }
+
+
 
 
         [HttpPost]
@@ -80,8 +82,6 @@ namespace TableauRestAPI.Controllers.Api
 
         }
 
-
-
         [HttpPost]
         [Route("api/TableauSignOut")]
         public async Task<IHttpActionResult> SignOut() {
@@ -100,5 +100,32 @@ namespace TableauRestAPI.Controllers.Api
         }
 
 
+        [HttpGet]
+        [Route("api/TableauToken")]
+        public async Task<IHttpActionResult> GetToken()
+        {
+
+
+            foreach (var value in TableauHttpClient.client.DefaultRequestHeaders)
+            {
+                if (value.Key == "X-Tableau-Auth")
+                    return Ok(value.Value);
+            }
+
+
+            var tokens = TableauHttpClient.client.DefaultRequestHeaders.FirstOrDefault(c => c.Key == "X-Tableau-Auth");
+
+            //var token = tokens.Value.FirstOrDefault();
+            return Ok(tokens.Value);
+
+
+
+            return Ok("Token Does not exist");
         }
+
+
+
+
+
+    }
 }
