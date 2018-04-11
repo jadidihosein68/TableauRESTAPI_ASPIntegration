@@ -4,5 +4,152 @@
     Layout = "~/Views/Shared/_Layout.cshtml";
 }
 
-<h2>Login</h2>
 
+
+<head>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <!-- js -->
+    <script src="https://code.jquery.com/jquery-1.10.2.js"></script>
+
+    <!-- bootstrap -->
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
+    <link href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.bundle.min.js" rel="stylesheet">
+    <link href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js" rel="stylesheet">
+    <link href="http://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+
+
+    <!-- font style -->
+    <link href="https://fonts.googleapis.com/css?family=Coiny" rel="stylesheet">
+
+
+    <title>Login</title>
+</head>
+
+<body>
+    <div class="container text-center">
+        <form>
+            <h3>Login</h3>
+
+            <label class="sr-only" for="username"><strong>Username</strong></label><br>
+            <i class="fa fa-user"></i><input type="text" id="username" name="username" placeholder="Username" required autofocus>
+            <br />
+            <label class="sr-only" for="pass"><strong>Password</strong></label><br>
+            <i class="fa fa-lock"></i><input type="password" id="pass" name="pass" placeholder="Password" required>
+            <br />
+            <label class="sr-only" for="site"><strong>Site</strong></label><br>
+            <i class="fa fa-sitemap"></i><input type="text" id="site" name="pass" placeholder="Site" required>
+        </form>
+        <button class="btn btn-primary" onclick="myFunction()">Login</button>
+        <button class="btn btn-primary" onclick="LogoutFunc()">Logout</button>
+
+
+    </div>
+
+
+    <!--scirpt-->
+    <script>
+
+
+        function storetolocalstorage(res) {
+            var myStorage = window.localStorage;
+            myStorage.setItem('Token', res.credentials.token);
+            myStorage.setItem('Site', JSON.stringify(res.credentials.site.id));
+            myStorage.setItem('User', JSON.stringify(res.credentials.user.id));
+        }
+
+
+        function storetoCookie(res) {
+            document.cookie = "Token = " + res.credentials.token;
+
+        }
+
+        function cleartolocalstorage(res) {
+            var myStorage = window.localStorage;
+            myStorage.removeItem('Token');
+            myStorage.removeItem('Site');
+            myStorage.removeItem('User');
+        }
+
+
+        function cleartoCookie(res) {
+            document.cookie = "Token=; expires=Thu, 01 Jan 1970 00:00:00 GMT";
+
+        }
+
+        function PostJQAjax(dataS) {
+            // AJAX code to submit form.
+            $.ajax({
+                method: "POST",
+                headers: {
+                    "Cache-Control": "no-cache",
+                    "Content-Type": "application/json; charset=utf-8",
+                    Accept: "application/json; charset=utf-8"
+                },
+                url: "http://localhost:3482/api/TableauSignIn",
+                data: JSON.stringify(dataS),
+                success: function (res) {
+                    alert("success");
+
+                    storetolocalstorage(res);
+                    storetoCookie(res);
+
+                    //console.log('Token : ' + res.credentials.token);
+                    //console.log('Site : ' + JSON.stringify(res.credentials.site));
+                    //console.log('User : ' + JSON.stringify(res.credentials.user));
+                    //console.log(document.cookie);
+                    //console.log(myStorage.getItem('Token'));
+                },
+                error: function (res) {
+                    alert("error");
+                    console.log(res.headers);
+                }
+            });
+        }
+
+
+
+        function myFunction() {
+            var user = document.getElementById("username").value;
+            var pw = document.getElementById("pass").value;
+            var site = document.getElementById("site").value;
+
+            var dataS = {
+                            "credentials":
+                                {
+                                    "name": user,
+                                    "password": pw,
+                                    "site": { "contentUrl": site }
+                                }
+            };
+
+            PostJQAjax(dataS);
+        }
+
+        function LogoutFunc() {
+            // AJAX code to submit form.
+            $.ajax({
+                method: "POST",
+                headers: {
+                    "Cache-Control": "no-cache",
+                    "Content-Type": "application/json; charset=utf-8"
+                },
+                url: "http://localhost:3482/api/TableauSignOut",
+                data: "",
+                success: function (res) {
+                    alert("success");
+
+                    cleartolocalstorage(res);
+                    cleartoCookie(res);
+                },
+                error: function (res) {
+                    alert("error");
+                    console.log(res);
+                }
+            });
+        }
+
+    </script>
+
+</body>
