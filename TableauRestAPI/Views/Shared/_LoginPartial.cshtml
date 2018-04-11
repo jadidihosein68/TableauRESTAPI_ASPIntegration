@@ -1,4 +1,5 @@
-﻿@using Microsoft.AspNet.Identity
+﻿@using TableauRestAPI.Models
+@using Microsoft.AspNet.Identity
 @if (Request.IsAuthenticated)
 {
     using (Html.BeginForm("LogOff", "Account", FormMethod.Post, new { id = "logoutForm", @class = "navbar-right" }))
@@ -17,6 +18,55 @@ else
 {
     <ul class="nav navbar-nav navbar-right">
         <li>@Html.ActionLink("Register", "Register", "Account", routeValues: null, htmlAttributes: new { id = "registerLink" })</li>
-        <li>@Html.ActionLink("Log in", "Login", "Account", routeValues: null, htmlAttributes: new { id = "loginLink" })</li>
+        <li>@Html.ActionLink("Log in", "Login", "Account", routeValues: null, htmlAttributes: new { id = "loginLink"})</li>
     </ul>
 }
+
+@*@*onclick = "clearCookieToken()"
+    <script>
+        function cleartolocalstorage(res) {
+            var myStorage = window.localStorage;
+            myStorage.removeItem('Token');
+            myStorage.removeItem('Site');
+            myStorage.removeItem('User');
+        }
+
+        function cleartoCookie(res) {
+            document.cookie = "Token=; expires=Thu, 01 Jan 1970 00:00:00 GMT";
+
+        }
+
+        function LogoutFunc() {
+            // AJAX code to submit form.
+            $.ajax({
+                method: "POST",
+                headers: {
+                    "Cache-Control": "no-cache",
+                    "Content-Type": "application/json; charset=utf-8"
+                },
+                url: "http://localhost:3482/api/TableauSignOut",
+                data: "",
+                success: function (res) {
+                    alert("success");
+                    cleartolocalstorage(res);
+                    cleartoCookie(res);
+                },
+                error: function (res) {
+                    alert("error");
+                }
+            });
+        }
+
+        function clearCookieToken() {
+            // AJAX code to submit form.
+            $.ajax({
+                success: function (res) {
+                    alert("success");
+                    cleartoCookie(res);
+                },
+                error: function (res) {
+                    alert("error");
+                }
+            });
+        }*@
+</script>

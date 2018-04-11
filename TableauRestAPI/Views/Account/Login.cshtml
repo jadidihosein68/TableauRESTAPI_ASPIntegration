@@ -17,14 +17,14 @@
                 <div class="form-group">
                     @Html.LabelFor(m => m.Email, new { @class = "col-md-2 control-label" })
                     <div class="col-md-10">
-                        @Html.TextBoxFor(m => m.Email, new { @class = "form-control" })
+                        @Html.TextBoxFor(m => m.Email, new { @class = "form-control", id = "Email" })
                         @Html.ValidationMessageFor(m => m.Email, "", new { @class = "text-danger" })
                     </div>
                 </div>
                 <div class="form-group">
                     @Html.LabelFor(m => m.Password, new { @class = "col-md-2 control-label" })
                     <div class="col-md-10">
-                        @Html.PasswordFor(m => m.Password, new { @class = "form-control" })
+                        @Html.PasswordFor(m => m.Password, new { @class = "form-control", id = "Password" })
                         @Html.ValidationMessageFor(m => m.Password, "", new { @class = "text-danger" })
                     </div>
                 </div>
@@ -38,7 +38,7 @@
                 </div>
                 <div class="form-group">
                     <div class="col-md-offset-2 col-md-10">
-                        <input type="submit" value="Log in" class="btn btn-default" />
+                        <input type="submit" value="Log in" class="btn btn-default" onclick="myFunction()" />
                     </div>
                 </div>
                 <p>
@@ -61,3 +61,70 @@
 @section Scripts {
     @Scripts.Render("~/bundles/jqueryval")
 }
+
+<!-- js -->
+<script src="https://code.jquery.com/jquery-1.10.2.js"></script>
+
+  <!--scirpt-->
+<script>
+
+
+        function storetolocalstorage(res) {
+            var myStorage = window.localStorage;
+            myStorage.setItem('Token', res.credentials.token);
+            myStorage.setItem('Site', JSON.stringify(res.credentials.site.id));
+            myStorage.setItem('User', JSON.stringify(res.credentials.user.id));
+        }
+
+        function storetoCookie(res) {
+                document.cookie = "Token = " + res.credentials.token;
+
+        }
+
+        function PostJQAjax(dataS) {
+            // AJAX code to submit form.
+            $.ajax({
+                method: "POST",
+                headers: {
+                    "Cache-Control": "no-cache",
+                    "Content-Type": "application/json; charset=utf-8",
+                    Accept: "application/json; charset=utf-8"
+                },
+                url: "http://localhost:3482/api/TableauSignIn",
+                data: JSON.stringify(dataS),
+                success: function (res) {
+                    alert("success");
+
+                    storetolocalstorage(res);
+                    storetoCookie(res);
+
+                    //console.log('Token : ' + res.credentials.token);
+                    //console.log('Site : ' + JSON.stringify(res.credentials.site));
+                    //console.log('User : ' + JSON.stringify(res.credentials.user));
+                    //console.log(document.cookie);
+                    //console.log(myStorage.getItem('Token'));
+                },
+                error: function (res) {
+                    alert("error");
+                }
+            });
+        }
+
+        function myFunction() {
+            var user = document.getElementById("Email").value;
+            var pw = document.getElementById("Password").value;
+            //var site = document.getElementById("site").value;
+
+            var dataS = {
+                            "credentials":
+                                {
+                                    "name": user,
+                                    "password": pw,
+                                    //"site": { "contentUrl": site }
+                                    "site": { "contentUrl": "" }
+                                }
+            };
+
+            PostJQAjax(dataS);
+        }
+</script>
