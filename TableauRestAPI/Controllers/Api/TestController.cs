@@ -15,10 +15,13 @@ namespace TableauRestAPI.Controllers.Api
 {
     public class TestController : ApiController
     {
+
+
+
         // Server Info
         public async Task<IHttpActionResult> getTest()
         {
-        
+
             string path = "2.8/serverinfo";
 
             HttpResponseMessage response = await TableauHttpClient.client.GetAsync(path);
@@ -29,7 +32,7 @@ namespace TableauRestAPI.Controllers.Api
                 ServerInfoAPIObject TheObj = await response.Content.ReadAsAsync<ServerInfoAPIObject>();
                 return Ok(TheObj);
 
-              
+
                 // to use string 
                 /*
                 var result2 = await response.Content.ReadAsStringAsync();
@@ -40,18 +43,8 @@ namespace TableauRestAPI.Controllers.Api
             }
 
             return BadRequest();
-           
+
         }
-
-
-        void SwapCurrentHeaderValue( string HeaderVariable , string headerValue ) {
-
-
-            TableauHttpClient.client.DefaultRequestHeaders.Remove(HeaderVariable);
-            TableauHttpClient.client.DefaultRequestHeaders.Add(HeaderVariable, headerValue);
-        }
-
-
 
 
         [HttpPost]
@@ -66,7 +59,8 @@ namespace TableauRestAPI.Controllers.Api
                 /// to use object : 
                 postObject TheObj = await response.Content.ReadAsAsync<postObject>();
 
-                SwapCurrentHeaderValue("X-Tableau-Auth", TheObj.credentials.token.ToString());
+                //    SwapCurrentHeaderValue("X-Tableau-Auth", TheObj.credentials.token.ToString());
+                //   TableauHTTPClient.addHeaderToken(TheObj.credentials.token);
 
                 return Ok(TheObj);
 
@@ -82,21 +76,58 @@ namespace TableauRestAPI.Controllers.Api
 
         }
 
+
+
+
+        private HttpRequestMessage Postrequest(string token1, string path)
+        {
+            var requestMessage = new HttpRequestMessage(HttpMethod.Post, TableauHttpClient.client.BaseAddress.ToString() + path);
+
+            requestMessage.Headers.Authorization = new AuthenticationHeaderValue("X-Tableau-Auth", token1);
+
+            requestMessage.Headers.Add("X-Tableau-Auth", token1);
+
+            return requestMessage;
+
+        }
+
+
+
+
+
+
+
+
         [HttpPost]
         [Route("api/TableauSignOut")]
         public async Task<IHttpActionResult> SignOut() {
 
-
             string path = "2.8/auth/signout";
-            var response = await TableauHttpClient.client.PostAsJsonAsync(path,"");
 
-            if (response.IsSuccessStatusCode)
+            try
             {
-                TableauHttpClient.client.DefaultRequestHeaders.Remove("X-Tableau-Auth");
+                var token = Request.Headers.FirstOrDefault(c => c.Key == "X-Tableau-Auth").Value.FirstOrDefault();
 
-                return StatusCode(HttpStatusCode.NoContent);
+                var Response = await TableauHttpClient.client.SendAsync(Postrequest(token,path));
+
+                if (Response.IsSuccessStatusCode)
+                {
+
+                    return StatusCode(HttpStatusCode.NoContent);
+                }
+
+                var ResponseContent = await Response.Content.ReadAsStringAsync();
+
+                var JsonResult = JObject.Parse(ResponseContent);
+
+                return Ok(JsonResult);
             }
-            return Unauthorized();
+            catch (ArgumentNullException e) {
+
+                return BadRequest("X-Tableau-Auth is missed !");
+
+            }
+
         }
 
 
@@ -104,6 +135,26 @@ namespace TableauRestAPI.Controllers.Api
         [Route("api/TableauToken")]
         public async Task<IHttpActionResult> GetToken()
         {
+
+
+            var re = Request;
+            var headers = re.Headers;
+
+            return Ok(headers);
+
+            ///
+            if (headers.Contains("Custom"))
+            {
+                string token = headers.GetValues("Custom").First();
+            }
+
+
+            var headerValues = TableauHttpClient.client.DefaultRequestHeaders;
+           // var id = headerValues.FirstOrDefault();
+
+
+            return Ok(headerValues.ToString());
+
 
 
             foreach (var value in TableauHttpClient.client.DefaultRequestHeaders)
