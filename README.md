@@ -15,7 +15,7 @@ This soloution acting as a middleware between client UI and Tableau server. the 
 
 ## Configuration 
 
-Update the Tableau server url on the App_Start folder in TableauHttpClientConfig.cs 
+Update the Tableau server url in the TableauHttpClientConfig.cs on App_Start folder 
 
 `` client.BaseAddress = new Uri("http://<ServerURL:port number>/api/"); ``
 
