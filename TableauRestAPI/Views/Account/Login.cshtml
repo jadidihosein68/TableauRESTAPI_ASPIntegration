@@ -54,15 +54,17 @@
     <div class="col-md-4">
         <section id="socialLoginForm">
             @Html.Partial("_ExternalLoginsListPartial", new ExternalLoginListViewModel { ReturnUrl = ViewBag.ReturnUrl })
+            @Html.Partial("_LoginPartial")
         </section>
     </div>
 </div>
 
 @section Scripts {
     @Scripts.Render("~/bundles/jqueryval")
+    @Scripts.Render("~/bundles/tableauIntegration")
 }
 
-<!-- js -->
+    <!-- js -->
 <script src="https://code.jquery.com/jquery-1.10.2.js"></script>
 
   <!--scirpt-->
@@ -74,11 +76,12 @@
             myStorage.setItem('Token', res.credentials.token);
             myStorage.setItem('Site', JSON.stringify(res.credentials.site.id));
             myStorage.setItem('User', JSON.stringify(res.credentials.user.id));
+            
         }
 
         function storetoCookie(res) {
-                document.cookie = "Token = " + res.credentials.token;
-
+            //document.cookie = "Token = " + res.credentials.token;
+                docCookies.setItem("Token", res.credentials.token, 1800, "/", "localhost", null);
         }
 
         function PostJQAjax(dataS) {
@@ -91,18 +94,16 @@
                     Accept: "application/json; charset=utf-8"
                 },
                 url: "http://localhost:3482/api/TableauSignIn",
-                data: JSON.stringify(dataS),
+                data: JSON.stringify(dataS),                
                 success: function (res) {
-                    alert("success");
-
+                    alert("success");                    
                     storetolocalstorage(res);
-                    storetoCookie(res);
+                    storetoCookie(res);                   
 
-                    //console.log('Token : ' + res.credentials.token);
-                    //console.log('Site : ' + JSON.stringify(res.credentials.site));
-                    //console.log('User : ' + JSON.stringify(res.credentials.user));
-                    //console.log(document.cookie);
-                    //console.log(myStorage.getItem('Token'));
+                    console.log('Token : ' + res.credentials.token);
+                    console.log('Site : ' + JSON.stringify(res.credentials.site));
+                    console.log('User : ' + JSON.stringify(res.credentials.user));
+                    console.log(myStorage.getItem('Token'));
                 },
                 error: function (res) {
                     alert("error");

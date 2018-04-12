@@ -10,7 +10,7 @@
         <li>
             @Html.ActionLink("Hello " + User.Identity.GetUserName() + "!", "Index", "Manage", routeValues: null, htmlAttributes: new { title = "Manage" })
         </li>
-        <li><a href="javascript:document.getElementById('logoutForm').submit()">Log off</a></li>
+        <li><a href="javascript:document.getElementById('logoutForm').submit()" onclick = "LogoutFunc()">Log off</a></li>
     </ul>
     }
 }
@@ -18,55 +18,46 @@ else
 {
     <ul class="nav navbar-nav navbar-right">
         <li>@Html.ActionLink("Register", "Register", "Account", routeValues: null, htmlAttributes: new { id = "registerLink" })</li>
-        <li>@Html.ActionLink("Log in", "Login", "Account", routeValues: null, htmlAttributes: new { id = "loginLink"})</li>
+        <li>@Html.ActionLink("Log in", "Login", "Account", routeValues: null, htmlAttributes: new { id = "loginLink" })</li>
     </ul>
 }
 
-@*@*onclick = "clearCookieToken()"
+<!--scirpt-->
+
     <script>
-        function cleartolocalstorage(res) {
-            var myStorage = window.localStorage;
-            myStorage.removeItem('Token');
-            myStorage.removeItem('Site');
-            myStorage.removeItem('User');
-        }
+        var myStorage = window.localStorage;
+        function cleartolocalstorage() {
+                
+                myStorage.removeItem('Token');
+                myStorage.removeItem('Site');
+                myStorage.removeItem('User');
+            }
 
-        function cleartoCookie(res) {
-            document.cookie = "Token=; expires=Thu, 01 Jan 1970 00:00:00 GMT";
-
+        function cleartoCookie() {
+                //document.cookie = "Token=; expires=Thu, 01 Jan 1970 00:00:00 GMT";
+                docCookies.removeItem("Token", "/", "localhost", null);
         }
 
         function LogoutFunc() {
-            // AJAX code to submit form.
-            $.ajax({
-                method: "POST",
-                headers: {
-                    "Cache-Control": "no-cache",
-                    "Content-Type": "application/json; charset=utf-8"
-                },
-                url: "http://localhost:3482/api/TableauSignOut",
-                data: "",
-                success: function (res) {
-                    alert("success");
-                    cleartolocalstorage(res);
-                    cleartoCookie(res);
-                },
-                error: function (res) {
-                    alert("error");
-                }
-            });
-        }
 
-        function clearCookieToken() {
             // AJAX code to submit form.
-            $.ajax({
-                success: function (res) {
-                    alert("success");
-                    cleartoCookie(res);
-                },
-                error: function (res) {
-                    alert("error");
-                }
-            });
-        }*@
+                $.ajax({
+                    method: "POST",
+                    headers: {
+                        //"Cache-Control": "no-cache",
+                        //"Content-Type": "application/json; charset=utf-8",
+                        "X-Tableau-Auth": myStorage.getItem('Token')
+                    },
+                    url: "http://localhost:3482/api/TableauSignOut",
+                    data: "",
+                    success: function (res) {
+                        alert("success");
+                            cleartolocalstorage(res);
+                            cleartoCookie(res);
+                    },
+                    error: function (res) {
+                        alert("error");
+                    }
+                });
+            }
 </script>
