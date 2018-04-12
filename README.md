@@ -11,7 +11,21 @@ This soloution acting as a middleware between client UI and Tableau server. the 
 
 3- The Tableau token should pass through header using "X-Tableau-Auth" header key. 
 
-4- you can fin all the API reference [here](https://onlinehelp.tableau.com/current/api/rest_api/en-us/help.htm#REST/rest_api_ref.htm#API_Reference%3FTocPath%3DAPI%2520Reference%7C_____0).
+4- you can find all of the API reference [here](https://onlinehelp.tableau.com/current/api/rest_api/en-us/help.htm#REST/rest_api_ref.htm#API_Reference%3FTocPath%3DAPI%2520Reference%7C_____0).
+
+## Configuration 
+
+Update the Tableau server url on the App_Start folder in TableauHttpClientConfig.cs 
+
+`` client.BaseAddress = new Uri("http://<ServerURL:port number>/api/"); ``
+
+Example : 
+You can use
+
+`` client.BaseAddress = new Uri("http://tableau:8000/api/"); ``
+or
+`` client.BaseAddress = new Uri("http://192.168.0.108:8000/api/"); ``
+
 
 ## Authentication
 
