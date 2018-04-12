@@ -1,10 +1,8 @@
 # Integrate Tableau with ASP.Net MVC5 
-## Over All View
-
 The project aim is to provide a simple integration between Tableau API and asp.net mvc 5 framework.
 The idea is to provide a Single sign in soloution so the user does not need to login for each request. 
 This soloution acting as a middleware between client UI and tabluea server. the client consume the middleware API to communicate with tabluea server, **do not procced with this soloution if you are looking for a direct connection from java script to tableau server**.
-
+## Over All View
 ### Before start the development : 
 
 1- [By deault the Tableau setting for an idle user session timeout is 240 minutes](http://kb.tableau.com/articles/howto/changing-the-user-session-timeout)
