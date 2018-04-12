@@ -17,5 +17,5 @@ This soloution acting as a middleware between client UI and Tableau server. the 
 
 Performing each login attemp will force the Tableau server to provide a token key value object. Each object has limited time life span, and after expiray server will throw expired token error. 
 
-The soloution store the token inside both **local storage and cookies**. You can disable either of method based on ur reqirments. we use a 3rd party java script library to store the Token into the cookie.
+The soloution store the token inside both **local storage and cookies**. You can disable either of method based on ur reqirments. we use a [3rd party java script library](https://developer.mozilla.org/en-US/docs/Web/API/Document/cookie/Simple_document.cookie_framework) to store the Token into the cookie.
 
