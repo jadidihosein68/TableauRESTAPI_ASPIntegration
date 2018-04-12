@@ -6,7 +6,7 @@ This soloution acting as a middleware between client UI and tabluea server. the 
 
 ### Before start the development : 
 
-1- [By deault the Tableau session will timeout after 240 mins](https://community.tableau.com/thread/201438)
+1- [By deault the Tableau session will timeout after 240 mins](http://kb.tableau.com/articles/howto/changing-the-user-session-timeout)
 
 2- By default the ASP.Net Identity token is valid for 30 min (can set in Startup.Auth.cs)
 
