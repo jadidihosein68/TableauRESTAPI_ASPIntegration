@@ -20,10 +20,13 @@ Update the Tableau server url on the App_Start folder in TableauHttpClientConfig
 `` client.BaseAddress = new Uri("http://<ServerURL:port number>/api/"); ``
 
 Example : 
+
 You can use
 
 `` client.BaseAddress = new Uri("http://tableau:8000/api/"); ``
+
 or
+
 `` client.BaseAddress = new Uri("http://192.168.0.108:8000/api/"); ``
 
 
