@@ -4,7 +4,7 @@ The project aim is to provide a simple integration between Tableau API and asp.n
 The idea is to provide a Single sign in soloution so the user does not need to login for each request. 
 This soloution acting as a middleware between client UI and tabluea server. the client consume the middleware API to communicate with tabluea server, **do not procced with this soloution if you are looking for a direct connection from java script to tableau server**.
 
-Before start the development you have to consider following points : 
+### Before start the development you have to consider following points : 
 
 1- [By deault the Tableau session will timeout after 240 mins](https://community.tableau.com/thread/201438)
 
