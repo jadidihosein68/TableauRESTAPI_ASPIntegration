@@ -1,4 +1,5 @@
-## Integrate Tableau with ASP.Net MVC5 
+# Integrate Tableau with ASP.Net MVC5 
+## Over All View
 
 The project aim is to provide a simple integration between Tableau API and asp.net mvc 5 framework.
 The idea is to provide a Single sign in soloution so the user does not need to login for each request. 
@@ -18,4 +19,4 @@ Performing each login attemp will force the tableau server to provide a token ke
 
 The soloution store the token inside both local storage and cookies. You can disable either of method based on ur reqirments. 
 
-
+## Authentication
