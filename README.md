@@ -1,4 +1,3 @@
-# Integrate Tableau with ASP.Net
 ## Integrate Tableau with ASP.Net MVC5 
 
 The project aim is to provide a simple integration between Tableau API and asp.net mvc 5 framework.
