@@ -29,7 +29,7 @@ or
 
 `` client.BaseAddress = new Uri("http://192.168.0.108:8000/api/"); ``
 
-Make sure the [clickjack protection](http://onlinehelp.tableau.com/current/server/en-us/clickjack_protection.htm) is disabled.
+If you want to use VIZ Make sure the [clickjack protection](http://onlinehelp.tableau.com/current/server/en-us/clickjack_protection.htm) is disabled.
 
 ## Authentication
 
