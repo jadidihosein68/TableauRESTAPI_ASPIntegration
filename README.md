@@ -36,3 +36,12 @@ Performing each login attemp will force the Tableau server to provide a token ke
 
 The soloution store the token inside both **local storage and cookies**. You can disable either of method based on ur reqirments. we use a [3rd party java script library](https://developer.mozilla.org/en-US/docs/Web/API/Document/cookie/Simple_document.cookie_framework) to store the Token into the cookie.
 
+
+## Limitations 
+
+1- The Tabluea Rest API does not provide change password request for a normal user, so we can not change the password by a single request. the user need to change the password 2 times (.Net and tableau).  
+2- Aassume you are **not using 2 factor auth** after register a new user the user navigates to index page, you need to update the token in register view too. 
+
+
+
+
