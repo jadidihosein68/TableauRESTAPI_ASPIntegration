@@ -15,6 +15,8 @@ This soloution acting as a middleware between client UI and Tableau server. the 
 
 4- you can find all of the API reference [here](https://onlinehelp.tableau.com/current/api/rest_api/en-us/help.htm#REST/rest_api_ref.htm#API_Reference%3FTocPath%3DAPI%2520Reference%7C_____0).
 
+5- you can not use the API token for the VIZ request
+
 ## Configuration 
 
 Update the Tableau server url in the TableauHttpClientConfig.cs on App_Start folder 
