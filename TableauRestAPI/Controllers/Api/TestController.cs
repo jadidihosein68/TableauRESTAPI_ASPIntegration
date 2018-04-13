@@ -102,7 +102,7 @@ namespace TableauRestAPI.Controllers.Api
         [Route("api/TableauSignOut")]
         public async Task<IHttpActionResult> SignOut() {
 
-            string path = "2.8/auth/signout";
+            string path = "2.8/auth/signout"; 
 
             try
             {
