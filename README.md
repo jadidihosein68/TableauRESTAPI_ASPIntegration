@@ -1,6 +1,7 @@
 # Integrate Tableau REST API with ASP.Net MVC5 
 The project aim is to provide a simple integration between Tableau API and asp.net mvc 5 framework.
-The idea is to provide a Single sign in soloution so the user does not need to login for each request. 
+Tabluea API is use for automation only, **you can not use the API token for the VIZ**, if you want to use SSI for VIZ please study [Trusted Auth](http://onlinehelp.tableau.com/current/server/en-us/trusted_auth.htm)
+The idea is to provide a Single sign in soloution so the user does not need to login for each Tableau Rest API requests. 
 This soloution acting as a middleware between client UI and Tableau server. the client consume the middleware API to communicate with the Tableau server, **do not procced with this soloution if you are looking for a direct connection from java script to Tableau server**.
 ## Over All View
 ### Before start the development : 
