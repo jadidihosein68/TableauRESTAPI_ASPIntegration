@@ -41,7 +41,7 @@ The soloution store the token inside both **local storage and cookies**. You can
 
 ## Limitations 
 
-1- The Tabluea Rest API does not provide change password request for a normal user, so we can not change the password by a single request. the user need to change the password 2 times (.Net and tableau).  
+1- The Tabluea Rest API does not provide change password requests for none admin user, so we can not change the password by a single request. the user need to change the password 2 times (.Net and tableau).  
 2- Aassume you are **not using 2 factor auth** after register a new user the user navigates to index page, you need to update the token in register view too. 
 
 
