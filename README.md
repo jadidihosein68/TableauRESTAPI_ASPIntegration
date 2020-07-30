@@ -48,5 +48,6 @@ The soloution store the token inside both **local storage and cookies**. You can
 2- Aassume you are **not using 2 factor auth** after register a new user the user navigates to index page, you need to update the token in register view too. 
 
 
-
+If you have any questions you can contact me at : 
+Jadidi.hosein@gmail.com with the subject of TableauRESTAPI_ASPIntegration-Question
 
